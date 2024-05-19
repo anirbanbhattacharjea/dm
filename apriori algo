@@ -1,0 +1,81 @@
+!pip install efficient_apriori
+
+from efficient_apriori import apriori
+import pandas as pd
+df=pd.read_csv("groceriesDataset.csv")
+
+df.head()
+df.shape
+df["Item(s)"].value_counts()
+df.isnull().sum()
+df.dropna(thresh=5,inplace=True)
+
+df.head()
+df.isnull().sum()
+4734-1005
+df.dropna(thresh=3729,inplace=True,axis=1)
+df.head()
+df.isnull().sum()
+df=df.fillna(method="ffill", limit=3)
+df.isnull().sum()
+df=df.fillna(method="bfill",limit=3)
+df.isnull().sum()
+df.drop(["Item(s)"], axis=1, inplace=True)
+df1=df.values.tolist()
+#4.1
+
+itemsets, rules = apriori(df1,min_support=0.02, min_confidence=0.05)
+itemsets
+rules
+#4.2
+itemsets, rules =apriori(df1, min_support=0.1, min_confidence=0.2)
+itemsets
+rules
+items = df.stack()
+import matplotlib.pyplot as plt
+
+plt.figure()
+items.value_counts().head(10).plot(kind= "bar")
+
+plt.xlabel("Top 10 frequent itemset")
+plt.ylabel("Frequency")
+#ANOTHER dATASET
+new_df = pd.read_csv('1000i.csv')
+new_df.columns = ["Receipt", "food", "quantity"]
+new_df.head()
+new_df.isna().sum()
+new_df.shape
+new_df.describe()
+new_df["food"] = new_df["food"].map({1:"milk",2:"sugar",3:"chocolate",4:"apples",5:"curd"})
+new_df.head(2)
+li =[]
+
+for i in new_df["Receipt"].unique():
+    li.append[()]
+for i in range(new_df.shape[0]):
+    li[new_df["Receipt"][i] - 1].append(new_df["food"][i])
+    
+li
+itemsets, rules = apriori(li, min_support=0.02, min_confidence=0.05)
+itemsets
+rules
+itemsets, rules = apriori(df1, min_support=0.1, min_confidence=0.2)
+itemsets
+rules
+unique_food = new_df["food"].unique()
+unique_food
+count = {}
+
+for i in range(new_df.shape[0]):
+    if new_df["food"][i] not in count:
+        count[new_df["food"][i]] = new_df["quantity"][i]
+    else:
+        count[new_df["food"][i]] = new_df["quantity"][i] + count[new_df["food"][i]]
+count
+count= pd.Series(count)
+plt.figure()
+count.plot(kind="bar")
+
+plt.xlabel("Frequent Items")
+
+plt.ylabel("Frequency")
