@@ -1,0 +1,60 @@
+Decision Tree
+
+from sklearn import datasets
+from sklearn import tree
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_breast_cancer
+from matplotlib import pyplot as plt
+cancer = datasets.load_breast_cancer()
+X= cancer.data
+y=cancer.target
+clf = DecisionTreeClassifier(criterion='entropy',max_depth=None,random_state=0)
+model=clf.fit(X,y)
+text_representation = tree.export_text(clf)
+print(text_representation)
+with open("decision_tree.log","w") as fout:
+  fout.write(text_representation)
+fig = plt.figure(figsize=(25,15))
+tree.plot_tree(clf,feature_names = cancer.feature_names,class_names=cancer.target_names,filled=True)
+fig.savefig("decisiontree.png")
+cancer =  load_breast_cancer()
+X_train , X_test , y_train , y_test = train_test_split(cancer.data,cancer.target,test_size=0.3,random_state=0)
+tree = DecisionTreeClassifier(random_state = 0)
+tree.fit(X_train , y_train)
+print("Accracy on Training Set : {:.3f}".format(tree.score(X_train,y_train)))
+print("Accuracy on Testing Set : {:,3f}",format(tree.score(X_test,y_test)))
+tree = DecisionTreeClassifier(max_depth = 4 , random_state = 0)
+tree.fit(X_train , y_train)
+print("Accracy on Training Set : {:.3f}".format(tree.score(X_train,y_train)))
+print("Accuracy on Testing Set : {:.3f}".format(tree.score(X_test,y_test)))
+
+
+KNN
+
+from sklearn import datasets
+import pandas as pd
+cancer = datasets.load_breast_cancer()
+df = pd.DataFrame(data = cancer.data,columns = cancer.feature_names)
+df
+
+Naive Bayes
+
+from sklearn import datasets
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+cancer = datasets.load_breast_cancer()
+df = pd.DataFrame(data = cancer.data,columns = cancer.feature_names)
+df
+# Splitting the dataset
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(df, cancer.target, train_size = 0.75, random_state = 0, test_size = 0.25)
+x_train
+from sklearn.naive_bayes import GaussianNB
+nb = GaussianNB()
+nb.fit(x_train, y_train)
+y_pred = nb.predict(x_test)
+y_pred
+from sklearn import metrics
+print("Accuracy : ", metrics.accuracy_score(y_test, y_pred))
