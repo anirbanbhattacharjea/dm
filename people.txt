@@ -1,16 +1,50 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-df= pd.read_csv(r'C:\Users\anirb\OneDrive\Documents\people.csv')
+
+(i)
+df = {
+    "age": [21,2,18,224,34],
+"agegroup": ["adult","child","adult","elderly","adult"],
+"height": [6.0,3,5.7,5,-7],
+"status": ["Single","Married","Married","Widowed","Married"],
+"yearsmarried": [-1,0,20,2,3]}
 df
-df.isnull().sum()
-df.describe()
-ruleset(df)
+df = pd.DataFrame(df)
 df
-df_rule_followed = df.iloc[:,5:]
-df_rule_followed = df_rule_followed.astype(int)
-df_rule_followed
-df_rule_followed.describe()
-plt.figure()
-df_rule_followed.apply(lambda x:len(x) - x.sum()).plot(kind='bar')
-plt.xlabel('Rules')
-plt.ylabel("No. of rules violated")
+df.to_csv('people.csv')
+df = pd.read_csv('people.csv', index_col=0)
+df
+
+(ii)
+def d1(): 
+        
+
+    print("Age range:")
+    print((df['age']<150) & (df['age']>-1))
+    
+def d2(): 
+    print("Years Married:")
+    print(df['age'] > df['yearsmarried'])
+
+def d3(): 
+    print("Status:")
+    print((df["status"]=="Married") | (df["status"]=="Single") | (df["status"]=="Widowed"))
+
+def d4():  
+    df.loc[df['age']<18, 'agegroup'] = 'child'
+    df.loc[(df['age']>=18) & (df['age']<65), 'agegroup'] = 'adult'
+    df.loc[df['age']>=65, 'agegroup'] = 'elderly'
+    print("Age group:")
+    print(df)
+
+(iv)
+x=(df["status"]=="Married") | (df["status"]=="Single") | (df["status"]=="Widowed")
+print("no.of valid values:",x.sum())
+print("no.of valid values:",len(x)-x.sum())
+
+(iii)
+E = {d1(),d2(),d3(),d4()}
+print(E)
+
+(v)
+df.plot()
