@@ -1,0 +1,28 @@
+df = pd.read_csv(r"C:\Users\anirb\OneDrive\Desktop\BSc Computer Science\Semester 6\DM\wine.data",sep = ",")
+df
+df.std()
+df.mean()
+df1 = (df-df.mean())/df.std()
+df1
+df1.mean()
+
+import pandas as pd 
+import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+X = iris.data
+Y = iris.target
+
+iris_df = pd.DataFrame(X, columns=iris.feature_names)
+
+iris_df.std()
+
+iris_df.mean()
+
+df2 = (iris_df-iris_df.mean())/iris_df.std()
+df2
+
+df2.mean()
