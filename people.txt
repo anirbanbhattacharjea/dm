@@ -1,0 +1,16 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+df= pd.read_csv(r'C:\Users\anirb\OneDrive\Documents\people.csv')
+df
+df.isnull().sum()
+df.describe()
+ruleset(df)
+df
+df_rule_followed = df.iloc[:,5:]
+df_rule_followed = df_rule_followed.astype(int)
+df_rule_followed
+df_rule_followed.describe()
+plt.figure()
+df_rule_followed.apply(lambda x:len(x) - x.sum()).plot(kind='bar')
+plt.xlabel('Rules')
+plt.ylabel("No. of rules violated")
