@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn import metrics
+iris = load_iris()
+df_iris = pd.DataFrame(iris.data, columns=iris.feature_names)
+df_iris['Class'] = iris.target
+df_iris.head()
+df_iris.shape
+df_iris.info()
+scaler = StandardScaler()
+scaled_X = scaler.fit_transform(df_iris.iloc[:,:-1])
+df_iris_scaled = pd.DataFrame(scaled_X,columns= list(df_iris.columns)[:-1])
+df_iris_scaled["class"] = df_iris["Class"]
+df_iris_scaled.head()
+df_iris_scaled.describe()
+import matplotlib.pyplot as plt
+plt.scatter(df_iris_scaled["petal length (cm)"], df_iris_scaled["petal width (cm)"])
+X = df_iris_scaled.iloc[:,:-1]
+Y = df_iris_scaled["class"]
